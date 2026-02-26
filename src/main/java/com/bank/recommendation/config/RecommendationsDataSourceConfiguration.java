@@ -1,5 +1,6 @@
 package com.bank.recommendation.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,7 +11,9 @@ import javax.sql.DataSource;
 @Configuration
 public class RecommendationsDataSourceConfiguration {
 
-    @Bean
+
+
+    @Bean(name = "h2DataSource")
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.h2.Driver");
@@ -20,7 +23,7 @@ public class RecommendationsDataSourceConfiguration {
     }
 
     @Bean (name = "recommendationsJdbcTemplate")
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+    public JdbcTemplate jdbcTemplate(@Qualifier("h2DataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 }
