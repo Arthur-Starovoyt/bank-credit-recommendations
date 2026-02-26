@@ -1,7 +1,7 @@
 package com.bank.recommendation.controller;
 
 
-import com.bank.recommendation.models.ResponsRecommendationDto;
+import com.bank.recommendation.models.ResponseRecommendationDto;
 import com.bank.recommendation.services.RecommendationsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +21,8 @@ public class RecommendationController {
     }
 
     @GetMapping("/{userId}")
-    public ResponsRecommendationDto getRecommendationToUser(@PathVariable UUID userId) {
-        ResponsRecommendationDto result = new ResponsRecommendationDto(userId, recommendationsService.getRecommendationToUser(userId));
+    public ResponseRecommendationDto getRecommendationToUser(@PathVariable UUID userId) {
+        ResponseRecommendationDto result = new ResponseRecommendationDto(userId, recommendationsService.getRecommendationToUser(userId));
         return result;
     }
 

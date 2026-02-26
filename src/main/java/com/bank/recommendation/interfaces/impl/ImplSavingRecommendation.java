@@ -4,7 +4,7 @@ package com.bank.recommendation.interfaces.impl;
 import com.bank.recommendation.entity.ProductType;
 import com.bank.recommendation.entity.TransactionType;
 import com.bank.recommendation.interfaces.RecommendationRuleSet;
-import com.bank.recommendation.models.RecomendationDto;
+import com.bank.recommendation.models.RecommendationDto;
 import com.bank.recommendation.repositories.RecommendationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class ImplSavingRecommendation implements RecommendationRuleSet {
     private RecommendationsRepository repository;
 
     @Override
-    public Optional<RecomendationDto> getRecommendation(UUID user) {
+    public Optional<RecommendationDto> getRecommendation(UUID user) {
         boolean hasDebit = repository.hasProduct(user, ProductType.DEBIT.name());
 
         int sumDebitDeposit = repository.getSumByProdTypeAndTransactionsType(user, ProductType.DEBIT.name(), TransactionType.DEPOSIT.name());
@@ -28,7 +28,7 @@ public class ImplSavingRecommendation implements RecommendationRuleSet {
         int sumDebitWithdraw = repository.getSumByProdTypeAndTransactionsType(user, ProductType.DEBIT.name(), TransactionType.WITHDRAW.name());
 
         if (hasDebit && (sumDebitDeposit >= 50000 || sumSavingDeposit >= 50000) && sumDebitDeposit > sumDebitWithdraw) {
-            RecomendationDto investRecommendation = new RecomendationDto("Top Saving", UUID.fromString("59efc529-2fff-41af-baff-90ccd7402925"), """
+            RecommendationDto investRecommendation = new RecommendationDto("Top Saving", UUID.fromString("59efc529-2fff-41af-baff-90ccd7402925"), """
                     Откройте свою собственную «Копилку» с нашим банком!
                     «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!
                     Преимущества «Копилки»:

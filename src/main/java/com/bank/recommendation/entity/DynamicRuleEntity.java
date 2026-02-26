@@ -24,7 +24,7 @@ public class DynamicRuleEntity {
     private String productText;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name="rule_Json",nullable = false,columnDefinition = "jsonb")
+    @Column(name="rule_json",nullable = false,columnDefinition = "jsonb")
     private List<RuleCondition> rule;
 
     public DynamicRuleEntity(){

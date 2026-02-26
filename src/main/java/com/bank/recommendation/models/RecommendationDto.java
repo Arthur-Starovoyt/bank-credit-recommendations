@@ -2,12 +2,12 @@ package com.bank.recommendation.models;
 
 import java.util.UUID;
 
-public class RecomendationDto {
+public class RecommendationDto {
     private String name;
     private UUID id;
     private String text;
 
-    public RecomendationDto(String name, UUID id, String text) {
+    public RecommendationDto(String name, UUID id, String text) {
         this.name = name;
         this.id = id;
         this.text = text;

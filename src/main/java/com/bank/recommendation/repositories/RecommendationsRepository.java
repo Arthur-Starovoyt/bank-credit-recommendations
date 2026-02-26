@@ -15,19 +15,7 @@ public class RecommendationsRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public int getIntFromCustomRequest(String request) {
-        int result;
-        try {
-            result = jdbcTemplate.queryForObject(
-                    request,
-                    Integer.class
-            );
-            return result;
-        } catch (NullPointerException e) {
-            return result = 0;
-        }
 
-    }
     @Cacheable(value = "sumByProdTypeAndTransType", key = "#userId + ':' + #prodType + ':' + #transType")
     public int getSumByProdTypeAndTransactionsType(UUID userId, String prodType, String transType) {
 

@@ -3,7 +3,7 @@ package com.bank.recommendation.services;
 import com.bank.recommendation.entity.DynamicRuleEntity;
 import com.bank.recommendation.entity.RuleCondition;
 import com.bank.recommendation.interfaces.RecommendationRuleSet;
-import com.bank.recommendation.models.RecomendationDto;
+import com.bank.recommendation.models.RecommendationDto;
 import com.bank.recommendation.service.DynamicRuleEvaluator;
 
 import org.springframework.stereotype.Service;
@@ -28,8 +28,8 @@ public class RecommendationsService {
         this.ruleEvaluator = ruleEvaluator;
     }
 
-    public List<RecomendationDto> getRecommendationToUser(UUID userId) {
-        List<RecomendationDto> recommendations = new ArrayList<>();
+    public List<RecommendationDto> getRecommendationToUser(UUID userId) {
+        List<RecommendationDto> recommendations = new ArrayList<>();
 
         // 1. Статические правила (уже были)
         for (RecommendationRuleSet rule : staticRules) {
@@ -47,7 +47,7 @@ public class RecommendationsService {
                 }
             }
             if (allConditionsMet) {
-                recommendations.add(new RecomendationDto(
+                recommendations.add(new RecommendationDto(
                         rule.getProductName(),
                         rule.getProductId(),
                         rule.getProductText()

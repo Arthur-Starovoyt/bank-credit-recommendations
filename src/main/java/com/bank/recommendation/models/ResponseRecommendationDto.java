@@ -3,11 +3,11 @@ package com.bank.recommendation.models;
 import java.util.List;
 import java.util.UUID;
 
-public class ResponsRecommendationDto {
+public class ResponseRecommendationDto {
     private UUID user_id;
-    private List<RecomendationDto> recommendation;
+    private List<RecommendationDto> recommendation;
 
-    public ResponsRecommendationDto(UUID user_id, List<RecomendationDto> recommendation) {
+    public ResponseRecommendationDto(UUID user_id, List<RecommendationDto> recommendation) {
         this.user_id = user_id;
         this.recommendation = recommendation;
     }
@@ -20,11 +20,11 @@ public class ResponsRecommendationDto {
         this.user_id = user_id;
     }
 
-    public List<RecomendationDto> getRecommendation() {
+    public List<RecommendationDto> getRecommendation() {
         return recommendation;
     }
 
-    public void setRecommendation(List<RecomendationDto> recommendation) {
+    public void setRecommendation(List<RecommendationDto> recommendation) {
         this.recommendation = recommendation;
     }
 }

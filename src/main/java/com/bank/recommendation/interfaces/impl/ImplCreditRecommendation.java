@@ -4,7 +4,7 @@ package com.bank.recommendation.interfaces.impl;
 import com.bank.recommendation.entity.ProductType;
 import com.bank.recommendation.entity.TransactionType;
 import com.bank.recommendation.interfaces.RecommendationRuleSet;
-import com.bank.recommendation.models.RecomendationDto;
+import com.bank.recommendation.models.RecommendationDto;
 import com.bank.recommendation.repositories.RecommendationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class ImplCreditRecommendation implements RecommendationRuleSet {
     private RecommendationsRepository repository;
 
     @Override
-    public Optional<RecomendationDto> getRecommendation(UUID user) {
+    public Optional<RecommendationDto> getRecommendation(UUID user) {
         boolean hasCredit = repository.hasProduct(user, ProductType.CREDIT.name());
 
         int sumDebitDeposit = repository.getSumByProdTypeAndTransactionsType(user, ProductType.DEBIT.name(), TransactionType.DEPOSIT.name());
@@ -26,7 +26,7 @@ public class ImplCreditRecommendation implements RecommendationRuleSet {
         int sumDebitWithdraw = repository.getSumByProdTypeAndTransactionsType(user, ProductType.DEBIT.name(), TransactionType.WITHDRAW.name());
 
         if (!hasCredit && sumDebitDeposit > sumDebitWithdraw && sumDebitWithdraw > 100000) {
-            RecomendationDto investRecommendation = new RecomendationDto("Простой кредит", UUID.fromString("ab138afb-f3ba-4a93-b74f-0fcee86d447f"), """
+            RecommendationDto investRecommendation = new RecommendationDto("Простой кредит", UUID.fromString("ab138afb-f3ba-4a93-b74f-0fcee86d447f"), """
                     Откройте мир выгодных кредитов с нами!               
                     Ищете способ быстро и без лишних хлопот получить нужную сумму? Тогда наш выгодный кредит — именно то, что вам нужно! Мы предлагаем низкие процентные ставки, гибкие условия и индивидуальный подход к каждому клиенту.                    
                     Почему выбирают нас:                    
