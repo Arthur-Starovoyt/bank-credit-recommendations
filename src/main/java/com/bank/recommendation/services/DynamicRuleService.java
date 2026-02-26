@@ -48,4 +48,7 @@ public class DynamicRuleService {
         }
         repository.deleteByProductId(productId);
     }
+    public List<DynamicRuleEntity> findAllEntities() {
+        return repository.findAll();
+    }
 }
