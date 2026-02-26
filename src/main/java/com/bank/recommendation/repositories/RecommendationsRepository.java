@@ -62,4 +62,14 @@ public class RecommendationsRepository {
         else return Boolean.FALSE;
     }
 
+    @Cacheable(value = "countTransactions", key = "#userId + ':' + #productType")
+    public int countTransactions(UUID userId, String productType) {
+        String sql = """
+        SELECT COUNT(*)
+        FROM TRANSACTIONS t
+        JOIN PRODUCTS p ON t.PRODUCT_ID = p.ID
+        WHERE t.USER_ID = ? AND p.TYPE = ?
+    """;
+        return jdbcTemplate.queryForObject(sql, Integer.class, userId.toString(), productType);
+    }
 }
