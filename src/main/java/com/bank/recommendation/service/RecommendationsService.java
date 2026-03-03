@@ -1,10 +1,9 @@
-package com.bank.recommendation.services;
+package com.bank.recommendation.service;
 
 import com.bank.recommendation.entity.DynamicRuleEntity;
 import com.bank.recommendation.entity.RuleCondition;
 import com.bank.recommendation.interfaces.RecommendationRuleSet;
 import com.bank.recommendation.models.RecommendationDto;
-import com.bank.recommendation.service.DynamicRuleEvaluator;
 
 import org.springframework.stereotype.Service;
 
@@ -17,12 +16,12 @@ public class RecommendationsService {
 
     private final List<RecommendationRuleSet> staticRules;
     private final DynamicRuleService dynamicRuleService;
-    private final DynamicRuleEvaluator ruleEvaluator;
+    private final com.bank.recommendation.service.DynamicRuleEvaluator ruleEvaluator;
 
     // Внедрение через конструктор (список статических правил подхватится автоматически)
     public RecommendationsService(List<RecommendationRuleSet> staticRules,
                                   DynamicRuleService dynamicRuleService,
-                                  DynamicRuleEvaluator ruleEvaluator) {
+                                  com.bank.recommendation.service.DynamicRuleEvaluator ruleEvaluator) {
         this.staticRules = staticRules;
         this.dynamicRuleService = dynamicRuleService;
         this.ruleEvaluator = ruleEvaluator;

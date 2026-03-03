@@ -2,7 +2,7 @@ package com.bank.recommendation.controller;
 
 import com.bank.recommendation.models.DynamicRuleRequestDto;
 import com.bank.recommendation.models.DynamicRuleResponseDto;
-import com.bank.recommendation.services.DynamicRuleService;
+import com.bank.recommendation.service.DynamicRuleService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.bank.recommendation.services;
+package com.bank.recommendation.service;
 
 import com.bank.recommendation.entity.DynamicRuleEntity;
 import com.bank.recommendation.models.DynamicRuleRequestDto;
