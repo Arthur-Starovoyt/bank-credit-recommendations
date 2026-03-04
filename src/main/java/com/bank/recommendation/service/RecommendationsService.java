@@ -2,40 +2,46 @@ package com.bank.recommendation.service;
 
 import com.bank.recommendation.entity.DynamicRuleEntity;
 import com.bank.recommendation.entity.RuleCondition;
+import com.bank.recommendation.entity.RuleStatEntity;
 import com.bank.recommendation.interfaces.RecommendationRuleSet;
 import com.bank.recommendation.models.RecommendationDto;
-
+import com.bank.recommendation.service.DynamicRuleEvaluator;
+import com.bank.recommendation.repositories.RuleStatRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class RecommendationsService {
 
     private final List<RecommendationRuleSet> staticRules;
     private final DynamicRuleService dynamicRuleService;
-    private final com.bank.recommendation.service.DynamicRuleEvaluator ruleEvaluator;
+    private final DynamicRuleEvaluator ruleEvaluator;
+    private final RuleStatRepository ruleStatRepository;
 
-    // Внедрение через конструктор (список статических правил подхватится автоматически)
     public RecommendationsService(List<RecommendationRuleSet> staticRules,
                                   DynamicRuleService dynamicRuleService,
-                                  com.bank.recommendation.service.DynamicRuleEvaluator ruleEvaluator) {
+                                  DynamicRuleEvaluator ruleEvaluator,
+                                  RuleStatRepository ruleStatRepository) {
         this.staticRules = staticRules;
         this.dynamicRuleService = dynamicRuleService;
         this.ruleEvaluator = ruleEvaluator;
+        this.ruleStatRepository = ruleStatRepository;
     }
 
     public List<RecommendationDto> getRecommendationToUser(UUID userId) {
         List<RecommendationDto> recommendations = new ArrayList<>();
 
-        // 1. Статические правила (уже были)
+        // Статические правила
         for (RecommendationRuleSet rule : staticRules) {
             rule.getRecommendation(userId).ifPresent(recommendations::add);
         }
 
-        // 2. Динамические правила
+        // Динамические правила
         List<DynamicRuleEntity> dynamicRules = dynamicRuleService.findAllEntities();
         for (DynamicRuleEntity rule : dynamicRules) {
             boolean allConditionsMet = true;
@@ -51,6 +57,13 @@ public class RecommendationsService {
                         rule.getProductId(),
                         rule.getProductText()
                 ));
+                // Увеличиваем счётчик статистики
+                System.out.println(">>> Увеличиваем счётчик для правила: " + rule.getId());
+                ruleStatRepository.findByRuleId(rule.getId()).ifPresent(stat -> {
+                    stat.incrementCount();
+                    ruleStatRepository.save(stat);
+                    System.out.println(">>> Счётчик сохранён, новое значение: " + stat.getCount());
+                });
             }
         }
 
