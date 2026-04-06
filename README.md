@@ -1,67 +1,143 @@
-# Credit Recommendation Service
+# Bank Credit Recommendation Service
 
-Сервис для выдачи персонализированных рекомендаций банковских продуктов на основе анализа транзакций клиентов.
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-blue)
+![Maven](https://img.shields.io/badge/Maven-red)
+![Docker](https://img.shields.io/badge/Docker-ready-blue)
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
 
-## Технологический стек
+REST API сервис для выдачи персонализированных рекомендаций банковских продуктов на основе анализа транзакций клиентов.
+
+Проект реализует backend-сервис с поддержкой динамических правил, кэширования и интеграции с Telegram-ботом.
+
+---
+
+# Features
+
+- REST API для рекомендаций
+- Динамические правила
+- Кэширование
+- Telegram бот
+- Статистика правил
+- Liquibase миграции
+
+---
+
+# Технологический стек
 
 - Java 17
-- Spring Boot 3.x
-- Spring Web, JDBC Template, Data JPA
-- H2 Database (транзакции клиентов, read-only)
-- PostgreSQL (динамические правила и статистика)
-- Liquibase (миграции)
-- Caffeine (кэширование)
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- JDBC Template
+- PostgreSQL
+- H2 Database
+- Liquibase
+- Caffeine Cache
 - Telegram Bot API
 - Maven
+- Docker
 
-## Быстрый старт
+---
 
-### Требования
-- Java 17
-- PostgreSQL (локально или в Docker)
-- Файл `transaction.mv.db` в корне проекта
+# REST API
 
-### Запуск PostgreSQL (Docker)
+### Рекомендации
+
+```
+GET /recommendation/{userId}
+```
+
+### Управление правилами
+
+```
+POST /rule
+GET /rule
+DELETE /rule/{productId}
+GET /rule/stats
+```
+
+### Управление сервисом
+
+```
+GET /health
+GET /management/info
+POST /management/clear-caches
+```
+
+---
+
+# Архитектура
+
+Проект построен по layered architecture:
+
+```
+Controller → Service → Repository → Database
+```
+
+---
+
+# Project Structure
+
+```
+src/main/java/com/bank/recommendation
+
+├── config
+├── controller
+├── entity
+├── interfaces
+│   └── impl
+├── models
+├── repositories
+├── service
+│   └── evaluator
+└── telegram
+```
+
+---
+
+# Процесс разработки
+
+- Работа по спринтам
+- Использование Pull Requests
+- Code Review
+- Работа в отдельных ветках
+- Слияние через pull request
+
+---
+
+# Запуск проекта
+
+### Запуск PostgreSQL
+
 ```bash
-docker run --name postgres-credit -e POSTGRES_DB=credit_rules -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -p 5432:5432 -d postgres:15
-Сборка и запуск
+docker compose up
+```
 
-bash
-git clone https://github.com/Arthur3323/bank-credit-recommendations.git
-cd bank-credit-recommendations
-./mvnw spring-boot:run
-Проверка: curl http://localhost:8080/health
+### Запуск приложения
 
-Основные возможности
+```bash
+mvn spring-boot:run
+```
 
-REST API
+---
 
-GET /recommendation/{userId} – получить рекомендации для пользователя (UUID).
-POST /rule – создать динамическое правило.
-GET /rule – список всех правил.
-DELETE /rule/{productId} – удалить правило по product_id.
-GET /rule/stats – статистика срабатываний правил.
-GET /management/info – информация о сервисе.
-POST /management/clear-caches – сброс кешей.
-Telegram-бот
+# Future Improvements
 
-Бот @bank_credit_recommendations_bot позволяет получать рекомендации по имени пользователя.
+- Swagger documentation
+- Unit tests
+- Integration tests
 
-/start – приветствие и справка.
-/recommend <username> – получить рекомендации для пользователя с указанным именем (из базы H2).
-Документация
+---
 
-Подробное описание архитектуры, API и планов спринтов доступно в Wiki.
+# Статус проекта
 
-Команда
+Проект завершён и готов к демонстрации
 
-Артур Старовойт – разработка, настройка инфраструктуры
-Илья Бичаев – разработка бизнес-логики, динамические правила
-Статус
+---
 
-✅ Спринт 1 – базовая архитектура, статические правила, H2
-✅ Спринт 2 – динамические правила, PostgreSQL, Liquibase, кэширование
-✅ Спринт 3 – Telegram-бот, статистика, управляющие эндпоинты
-🚀 Проект готов к демонстрации
+# Автор
 
-*Последнее обновление: 2026-03-04*
+Артур Старовойт  
+Java Backend Developer
