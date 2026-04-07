@@ -4,6 +4,7 @@ import com.bank.recommendation.models.RecommendationDto;
 import com.bank.recommendation.repositories.RecommendationsRepository;
 import com.bank.recommendation.service.RecommendationsService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
+@ConditionalOnProperty(prefix = "telegram.bot", name = "token")
 public class CreditBot extends TelegramLongPollingBot {
 
     private final RecommendationsService recommendationsService;
