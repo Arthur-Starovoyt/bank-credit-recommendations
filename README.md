@@ -112,14 +112,30 @@ src/main/java/com/bank/recommendation
 ### Запуск PostgreSQL
 
 ```bash
-docker compose up
+docker compose up -d
 ```
+
+В корне проекта находится `docker-compose.yml`, который поднимает PostgreSQL c базой `credit_rules` на `localhost:5434`.
 
 ### Запуск приложения
 
 ```bash
 mvn spring-boot:run
 ```
+
+### Telegram Bot Token
+
+Telegram-бот запускается только если задана переменная окружения `TELEGRAM_BOT_TOKEN`.
+Для локальной работы можно скопировать `.env.example` в `.env`, подставить свой токен и загрузить переменные в текущую сессию shell.
+
+```bash
+cp .env.example .env
+# отредактируйте .env и укажите реальный токен
+source .env
+mvn spring-boot:run
+```
+
+Файл `.env` не коммитится. Если переменная не задана, REST API продолжит работать, но Telegram-бот не будет зарегистрирован.
 
 ---
 
